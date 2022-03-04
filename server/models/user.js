@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
     pin: {
-        type: Number,
+        type: String,
         select: false
     },
     email: {
@@ -37,6 +37,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'user'
     },
+    tickets: [
+        {
+            ticket: {
+                type: mongoose.Schema.ObjectId,
+                ref: 'Meal Ticket'
+            }
+        }
+    ],
     resetPasswordToken: String,
     resetPasswordExpire: Date
 });

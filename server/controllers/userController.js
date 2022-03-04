@@ -6,6 +6,7 @@ const sendToken = require('../utils/jwt');
 const User = require('../models/user');
 const sendOTP = require('../utils/sendOTP');
 const ErrorHandler = require('../utils/errorHandler');
+const MealTicket = require('../models/mealTicket');
 
 //Admin generate an invite code => api/v1/admin/generate 
 exports.generateInviteCode = catchAsyncErrors(async (req, res, next) => {
@@ -93,4 +94,44 @@ exports.verifyOTP = catchAsyncErrors(async (req, res, next) => {
     }
 
     sendToken(user, 200, res)
+
+    user.otp = null;
+    user.otpExpire = null;
+
+    await user.save()
+})
+
+// Add other user details ==> api/v1/user/update
+exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
+    const user = req.user;
+
+    user.pin = req.body.pin;
+
+    user.name = `${req.body.fname} ${req.body.lname}`
+
+    user.email = req.body.email
+
+    await user.save();
+
+    sendToken(user, 200, res);
+})
+
+// Generates meal ticket ==> api/v1/ticket
+exports.generateMealTicket = catchAsyncErrors(async (req, res, next) => {
+    const {value} = req.body
+    const createdBy = req.user
+
+    let date = new Date(Date.now());
+
+    date.setHours(24)
+    date.setMinutes(59)
+    date.setSeconds(59)
+
+
+    const ticket = await MealTicket.create({createdBy, expires: date, value})
+
+    res.status(200).json({
+        success: true,
+        ticket
+    })
 })

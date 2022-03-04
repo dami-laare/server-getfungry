@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+
+}
+
+/* body {
+  background-color: darkcyan;
+} */
+.hero-main {
+  height: 40rem;
+}
+#hero-header {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+#hero-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.hero-image {
+  height: 68%;
+}
+
+.btn {
+  background-color: #FF611D;
+}
+
+.hero-foot {
+  font-family: monospace;
+}
+
+.row {
+  --bs-gutter-x: 0;
+}
