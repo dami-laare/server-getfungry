@@ -27,6 +27,7 @@ const style = {
 const CompleteRegistration = () => {
 
     const [otp, setOtp] = useState('')
+
     const [initState, setInitState] = useState({
         loading: true,
         success: null
@@ -62,11 +63,11 @@ const CompleteRegistration = () => {
   return (
     <Fragment>
         <Header imgSrc='logo-white.png' classes={'nav-custom'}/>
-        {!initState.success ? (
+        {!true ? (
             <section className='mt-custom my-auto text-center d-flex flex-column justify-content-center align-items-center'>
             <p className='px-3 mb-4'>We just sent an OTP to your registered phone number and email.<br/>(Remember to check your spam folder)</p>
-            <form onSubmit={submitHandler}>
-                <div className='mb-4 row'>
+            <form onSubmit={submitHandler} className='row'>
+                <div className='mb-4 col-12'>
                     <ReactCodeInput 
                         type='text'
                         fields={6}
@@ -83,7 +84,7 @@ const CompleteRegistration = () => {
 
         </section>    
         ) : (
-            <CreatePin style={style}/>
+            <CreatePin style={style} test={true}/>
         )}
         
     </Fragment>
