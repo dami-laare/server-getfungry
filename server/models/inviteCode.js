@@ -5,13 +5,13 @@ const inviteSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    status: {
-        type: String,
-        default: 'Valid'
-    },
     createdBy: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
+    },
+    index: {
+        type: Number,
+        default: 1
     }
 })
 

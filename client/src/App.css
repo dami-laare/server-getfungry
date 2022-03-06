@@ -8,10 +8,26 @@
 /* body {
   background-color: darkcyan;
 } */
-.hero-main {
+.main-body {
   height: 40rem;
 }
-#hero-header {
+
+#main-nav {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+}
+
+.nav-custom {
+  height: 200px;
+  background-color: #FF611D;
+}
+
+.hero {
+  margin-top: 5rem;
+}
+
+.hero-header {
   font-size: 30px;
   font-weight: 600;
 }
@@ -25,8 +41,26 @@
   height: 68%;
 }
 
+.mt-custom {
+  transform: translateY(2rem);
+}
+
 .btn {
   background-color: #FF611D;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}
+
+.btn:hover, .btn:active {
+  color: white;
+  background-color: #cf531d;
+}
+
+.btn:focus {
+  color: white;
+  background-color: #cf531d;
+  box-shadow: 0 0 0 0.25rem #c7663ccb;
 }
 
 .hero-foot {
@@ -35,4 +69,23 @@
 
 .row {
   --bs-gutter-x: 0;
+}
+
+.justify-self-left {
+  display: block;
+  text-align: left;
+}
+
+.pin input {
+  transition: 150ms !important;
+}
+
+.pin input:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 5px 0.1rem #c7663ccb;
+}
+
+.row>a{
+  width: fit-content;
+  height: fit-content;
 }

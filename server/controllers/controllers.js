@@ -5,6 +5,7 @@ const referralCodes = require('referral-codes');
 const sendToken = require('../utils/jwt');
 const User = require('../models/user');
 const sendOTP = require('../utils/sendOTP');
+const sendMail = require('../utils/sendMail');
 const ErrorHandler = require('../utils/errorHandler');
 const MealTicket = require('../models/mealTicket');
 
@@ -17,6 +18,10 @@ exports.generateInviteCode = catchAsyncErrors(async (req, res, next) => {
 
     const createdBy  = req.user;
 
+    // Deletes previous invite code
+    await Invite.deleteOne({index: 1});
+
+    // Creates a new invite code
     await Invite.create({code: code[0], createdBy})
 
     res.json({
@@ -26,14 +31,14 @@ exports.generateInviteCode = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-// Validates an invite code => api/v1/invite/validate
+// Validates an invite code => api/v1/invite/validate/:inviteCode
 exports.validateInviteCode = catchAsyncErrors(async (req, res, next) => {
-    const {code} = req.body
+    const code = req.params.inviteCode
 
     const invite = await Invite.findOne({code});
 
     if(!invite || invite.status === 'used'){
-        return next(new ErrorHandler('Invite code is invalid', 400));
+        return next(new ErrorHandler('Invite code is invalid', 401));
     }
 
     invite.status = 'used';
@@ -45,18 +50,24 @@ exports.validateInviteCode = catchAsyncErrors(async (req, res, next) => {
     })
 });
 
-// Register a new user => api/v1/user/new
-exports.generateOTP = catchAsyncErrors(async (req, res, next) => {
-    let { phone, role } = req.body;
+// Register a new user => api/v1/user/register
+exports.registerUser = catchAsyncErrors(async (req, res, next) => {
+    let { phone, name, email } = req.body;
 
-    phone = phone.replace(/0/, '+234');
+    let formattedPhone = phone.replace(/0/, '+234');
 
     const preExistingUser = await User.findOne({phone});
 
     const otp = await generateOTP();
 
     if(preExistingUser) {
-        await sendOTP(otp, phone)
+        try{
+            // await sendOTP(otp, formattedPhone);
+            await sendMail(email, otp, next)
+        }catch(err){
+            return next(new ErrorHandler(err.message, 400))
+    
+        }
 
         preExistingUser.otp = otp;
 
@@ -67,12 +78,18 @@ exports.generateOTP = catchAsyncErrors(async (req, res, next) => {
         return sendToken(preExistingUser, 200, res)
     }
 
+    
+    try{
+        // await sendOTP(otp, formattedPhone);
+        await sendMail(email, otp, next)
+    }catch(err){
+        return next(new ErrorHandler(err.message, 400))
 
-    await sendOTP(otp, phone)
-
+    }
     const user = await User.create({
         phone, 
-        role, 
+        name,
+        email, 
         otp,
         otpExpire: new Date(Date.now() + 10 * 60 * 1000)
     });
@@ -81,10 +98,45 @@ exports.generateOTP = catchAsyncErrors(async (req, res, next) => {
 
 });
 
+// Login user ==? api/v1/user/login
+exports.loginUser = catchAsyncErrors(async (req, res, next) => {
+    const {phone, pin} = req.body;
+    const user = await User.findOne({phone}).select('+pin');
+
+    if(!user) {
+        return next(new ErrorHandler('User does not exist', 400))
+    }
+
+    const isPinMatched = await user.comparePin(pin);
+
+    if(!isPinMatched) {
+        return next(new ErrorHandler('Invalid PIN', 401));
+    }
+    sendToken(user, 201, res);
+})
+
+// Logout user /api/v1/logout
+
+exports.logoutUser = catchAsyncErrors( async (req, res, next) => {
+    const { token } = req.cookies;
+
+    if(!token){
+        return next(new ErrorHandler('You are already logged out', 400))
+    };
+
+    res.cookie('token', null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    }).status(200).json({
+        success: true,
+        message: 'You have successfully logged out'
+    });
+});
+
+
 // Verify OTP ==> api/v1/otp/verify
 exports.verifyOTP = catchAsyncErrors(async (req, res, next) => {
     const {otp} = req.body;
-
     const user = req.user;
 
     const date = new Date(Date.now())
@@ -101,15 +153,11 @@ exports.verifyOTP = catchAsyncErrors(async (req, res, next) => {
     await user.save()
 })
 
-// Add other user details ==> api/v1/user/update
-exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
+// Add other user details ==> api/v1/user/pin/new
+exports.addPin = catchAsyncErrors(async (req, res, next) => {
     const user = req.user;
 
     user.pin = req.body.pin;
-
-    user.name = `${req.body.fname} ${req.body.lname}`
-
-    user.email = req.body.email
 
     await user.save();
 

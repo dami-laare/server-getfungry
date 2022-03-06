@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const mealTicketSchema = new mongoose.Schema({
     expires: Date,
-    value: String,
+    value: {
+        type: String,
+        default: '1000'
+    },
     createdBy: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',

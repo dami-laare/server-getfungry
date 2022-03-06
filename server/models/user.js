@@ -59,8 +59,8 @@ userSchema.pre('save', async function(next) {
 
 
 // Compare encrypted PIN with entered PIN during login
-userSchema.methods.comparePassword = async function(enteredPIN) {
-    return await bcryptjs.compare(enteredPIN, this.pin);
+userSchema.methods.comparePin = async function(enteredPIN) {
+    return await bcrypt.compare(enteredPIN, this.pin);
 }
 
 // Return JWT token
