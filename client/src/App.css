@@ -9,7 +9,7 @@
   background-color: darkcyan;
 } */
 .main-body {
-  height: 40rem;
+  height: 42rem;
 }
 
 #main-nav {
@@ -88,4 +88,53 @@
 .row>a{
   width: fit-content;
   height: fit-content;
+}
+
+.dashboard-header {
+  padding-left: 0 !important;
+}
+
+.heading {
+  font-weight: 700;
+
+}
+
+.credit {
+  width: 100%;
+  height: 67.81px;
+  background-color: #FF611D;
+  border-radius: 12px;
+}
+
+.meal-ticket {
+  height: 56px;
+}
+
+.meal-btn {
+  height: 56px;
+  width: 56px;
+  /* border: 2px solid red; */
+  border-radius: 50%;
+  background-color: white;
+}
+.meal-btn:hover {
+  
+  background-color: white;
+}
+
+.meal-btn:focus {
+  
+  background-color: white;
+}
+
+.meal-arrow {
+  font-size: 2rem;
+}
+
+.f-600 {
+  font-weight: 600;
+}
+
+.transactions {
+  height: 53%;
 }
