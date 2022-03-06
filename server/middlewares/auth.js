@@ -5,8 +5,8 @@ const ErrorHandler = require("../utils/errorHandler");
 
 // Checks if user is authenticated or not
 exports.isAuthenticated = async (req, res, next) => {
-    // const { token } = req.body;
-    const { token } = req.cookies;
+    const { token } = req.body;
+    // const { token } = req.cookies;
 
     if(!token){
         return next(new ErrorHandler('You must be logged in to access this feature', 400));

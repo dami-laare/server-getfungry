@@ -82,7 +82,7 @@ export const addPin = (pin, token) => async function(dispatch){
             type: 'LOADING'
         })
 
-        const {data} = await axios.post(`http://127.0.0.1:4000/api/v1/user/pin/new`,{
+        const {data} = await axios.put(`http://127.0.0.1:4000/api/v1/user/pin/new`,{
             pin,
             token
         })

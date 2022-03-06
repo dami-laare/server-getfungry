@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { CookiesProvider } from "react-cookie";
 import './App.css';
 import Home from './components/UI/Home';
 import CompleteRegistration from './components/userRegistration/CompleteRegistration';

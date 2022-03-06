@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import App from './App';
 import store from './store';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
+import { CookiesProvider } from "react-cookie";
+
 // import AlertTemplate from 'react-alert-template-basic';
 import AlertTemplate from 'react-alert-template-oldschool-dark';
 
@@ -14,12 +16,15 @@ const options = {
 }
 
 ReactDOM.render(
+  
   <React.StrictMode>
-    <AlertProvider template={AlertTemplate} {...options}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </AlertProvider>
+      <CookiesProvider>
+        <AlertProvider template={AlertTemplate} {...options}>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </AlertProvider>
+      </CookiesProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

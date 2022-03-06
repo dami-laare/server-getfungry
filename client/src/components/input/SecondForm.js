@@ -14,7 +14,7 @@ const SecondForm = ({ btnSize, btnText, classes, inputSize, path} ) => {
   const [phone, setPhone ] = useState('')
   const [name, setName ] = useState('')
   const [email, setEmail ] = useState('')
-  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const alert = useAlert();
@@ -42,9 +42,9 @@ const SecondForm = ({ btnSize, btnText, classes, inputSize, path} ) => {
       await dispatch(registerUser(phone, name, email));
 
       const currState = store.getState();
-      console.log(currState)
+      // console.log(currState)
       setCookie('token', currState.token, options)
-
+      console.log(cookies.token)
       if(currState.error) {
         return alert.error(currState.error)
       }

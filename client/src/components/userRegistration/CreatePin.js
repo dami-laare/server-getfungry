@@ -5,6 +5,7 @@ import { useAlert } from 'react-alert'
 import Header from '../UI/Header'
 import ReactCodeInput from 'react-code-input'
 import Button from '../UI/Button'
+import { addPin } from '../../actions/userActions';
 
 
 
@@ -22,8 +23,17 @@ const CreatePin = ({style}) => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-
+        let state = store.getState();
         console.log(pin)
+
+        await dispatch(addPin(pin, state.token))
+
+        state = store.getState();
+
+
+        if(state.error) {
+            return alert.error(state.error)
+          }
     }
   return (
     <Fragment >
