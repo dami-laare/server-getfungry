@@ -3,6 +3,7 @@ const cors = require('cors');
 const errorMiddleware = require('./middlewares/errors')
 const express = require('express');
 const user = require('./routes/users')
+const misc = require('./routes/misc')
 
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(cookieParser())
 
 
 app.use('/api/v1', user);
+app.use('/api/v1', misc);
 
 app.use(errorMiddleware)
 module.exports = app

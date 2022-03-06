@@ -56,9 +56,6 @@ const CompleteRegistration = () => {
         if(currState.error) {
             return alert.error(currState.error)
           }
-          
-    
-        //   navigate(`/create-pin`)
     }
   return (
     <Fragment>
