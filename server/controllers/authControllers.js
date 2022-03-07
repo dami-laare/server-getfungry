@@ -75,16 +75,13 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 // Logout user /api/v1/logout
 
 exports.logoutUser = catchAsyncErrors( async (req, res, next) => {
-    const { token } = req.cookies;
+    const { token } = req.body;
 
     if(!token){
         return next(new ErrorHandler('You are already logged out', 400))
     };
 
-    res.cookie('token', null, {
-        expires: new Date(Date.now()),
-        httpOnly: true
-    }).status(200).json({
+    res.status(200).json({
         success: true,
         message: 'You have successfully logged out'
     });

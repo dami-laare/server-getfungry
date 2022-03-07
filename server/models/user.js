@@ -50,7 +50,16 @@ const userSchema = new mongoose.Schema({
     verified: {
         type: Boolean,
         default:false
+    },
+    card: {
+        number: String,
+        exp: String,
+    },
+    addedCard:{
+        type: Boolean,
+        default: false
     }
+
 });
 
 // Encrypt password before save

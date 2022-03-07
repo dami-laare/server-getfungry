@@ -1,8 +1,6 @@
-import React, { Fragment, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useStore } from 'react-redux';
-import { useAlert } from 'react-alert'
-import { verifyOTP } from '../../actions/userActions';
+import React, { Fragment, useEffect, useState } from 'react'
+import { verifyBVN } from '../../actions/userActions';
 import BottomMenu from './BottomMenu'
 import CreditBalance from './CreditBalance'
 import Header from './Header'
@@ -13,27 +11,47 @@ import PlainForm from './PlainForm'
 import './Dashboard.css'
 
 const Dashboard = () => {
-
-    const navigate = useNavigate();
-    const alert = useAlert();
+    
     const store = useStore();
-    const dispatch = useDispatch();
+    const [verified, setVerfied] = useState(store.getState().verified)
+    const [addedCard, setAddedCard] = useState(false)
+    const [addCard, setAddCard] = useState(false)
+    const [firstTicket, setFirstTicket] = useState(false)
+    const state = store.getState()
+    useEffect(() => {
+        setVerfied(state.verified)
+    }, [store, state])
+    
 
-    const [show, setShow] = useState(true)
+    const [show, setShow] = useState(false)
 
     const modalBtnClickHandler = () => {
-        // setShow(false)
-        console.log(store.getState());
-
+        setShow(false)
+        setAddCard(true)
     }
 
-    const submitHandler = (e) => {
-        e.preventDefault()
-        // setShow(false)
-        console.log(store.getState());
-
-        let currState = store.getState();
+    const closeHandler = (a) => {
+        setShow(!a)
     }
+
+    const getMealTicket = () => {
+        if(!verified){
+            setShow(true)
+        }
+        if(!addedCard && !firstTicket){
+            setAddCard(true);
+        }
+    }
+
+    const payback = () => {
+        if(!verified){
+            setShow(true)
+        }
+        if(!addedCard && !firstTicket){
+            setAddCard(true);
+        }
+    }
+
   return (
     <Fragment>
         <Header image={true} imgSrc={'logo.png'} style={{width: '5rem', marginLeft: '1.5rem'}} heading='Dashboard' classes={'dashboard-header'}/>
@@ -41,15 +59,22 @@ const Dashboard = () => {
         <div className='d-flex flex-column'style={{marginTop: '7rem', width: '100%'}}>
             <div style={{padding: '1rem'}}>
                 <CreditBalance />
-                <MealTicket />
+                <MealTicket getMealTicket={getMealTicket} payback={payback}/>
                 <Transactions />
             </div>
             
             <BottomMenu />
             <DModal 
                 show={show} 
-                modalBody={<PlainForm type='text' name='bvn' placeholder='Enter your BVN' btnText={'Continue'} btnSize='5' classes={'justify-content-center'} onSubmit={submitHandler} onClick={modalBtnClickHandler}/>}
+                modalBody={<PlainForm type='text' close={closeHandler} name='bvn' placeholder='Enter your BVN' btnText={'Continue'} btnSize='5' classes={'justify-content-center'}onClick={modalBtnClickHandler}/>}
                 headerText={'Activate your account'}
+                onClick={modalBtnClickHandler}
+                footer={false}
+            />
+            <DModal 
+                show={addCard} 
+                modalBody={<PlainForm type='text' close={closeHandler} name='bvn' placeholder='Enter your BVN' btnText={'Continue'} btnSize='5' classes={'justify-content-center'}onClick={modalBtnClickHandler}/>}
+                headerText={'Add Card'}
                 onClick={modalBtnClickHandler}
                 footer={false}
             />

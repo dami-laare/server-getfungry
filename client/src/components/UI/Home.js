@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import FirstForm from '../input/FirstForm'
 import Header from './Header'
 
@@ -29,6 +30,7 @@ const Home = () => {
                     name='inviteCode'
                     path='/register'
                 />
+                <p style={{fontSize: '0.8rem'}}>Already have an account? <Link to={'/user/login'} className='text-dark'>Sign in</Link></p>
             </div>
             <footer className='hero-foot text-center mt-auto mb-3 '>Payments secured by Monnify</footer>
           </section>

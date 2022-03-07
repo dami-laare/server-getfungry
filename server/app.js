@@ -4,6 +4,7 @@ const errorMiddleware = require('./middlewares/errors')
 const express = require('express');
 const user = require('./routes/users')
 const misc = require('./routes/misc')
+const payments = require('./routes/payments')
 
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(cookieParser())
 
 app.use('/api/v1', user);
 app.use('/api/v1', misc);
+app.use('/api/v1', payments)
 
 app.use(errorMiddleware)
 module.exports = app

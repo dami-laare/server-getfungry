@@ -13,10 +13,6 @@ const FirstForm = ({ placeholder, btnSize, type, btnText, id, name, classes, inp
   const alert = useAlert();
   const store = useStore()
 
-  useEffect(()=> {
-
-  }, [])
-
   const codeChangeHandler = (e) => {
     setCode(e.target.value)
   }
