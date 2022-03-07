@@ -59,8 +59,8 @@ const CompleteRegistration = () => {
     }
   return (
     <Fragment>
-        <Header imgSrc='logo-white.png' classes={'nav-custom'}/>
-        {!true ? (
+        <Header image={true} imgSrc='logo-white.png' classes={'nav-custom'}/>
+        {!initState.success ? (
             <section className='mt-custom my-auto text-center d-flex flex-column justify-content-center align-items-center'>
             <p className='px-3 mb-4'>We just sent an OTP to your registered phone number and email.<br/>(Remember to check your spam folder)</p>
             <form onSubmit={submitHandler} className='row'>
@@ -81,7 +81,7 @@ const CompleteRegistration = () => {
 
         </section>    
         ) : (
-            <CreatePin style={style} test={true}/>
+            <CreatePin style={style} test={initState.success}/>
         )}
         
     </Fragment>

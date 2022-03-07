@@ -7,7 +7,7 @@ const Home = () => {
 
   return (
       <Fragment>
-          <Header imgSrc='logo.png'/>
+          <Header image={true} imgSrc='logo.png'/>
           <section className='hero mx-4 h-100 d-flex flex-column'>
             <div className='row h-25 justify-content-between my-5'>
                 <div className='col-6 mt-3'>

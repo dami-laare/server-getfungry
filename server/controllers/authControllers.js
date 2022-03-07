@@ -4,6 +4,7 @@ const User = require('../models/user');
 const sendOTP = require('../utils/sendOTP');
 const generateOTP = require('../utils/generateOTP');
 const sendMail = require('../utils/sendMail');
+const ErrorHandler = require('../utils/errorHandler');
 
 
 // Register a new user => api/v1/user/register

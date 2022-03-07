@@ -5,7 +5,7 @@ import Header from '../UI/Header'
 const Register = () => {
   return (
     <Fragment>
-      <Header imgSrc={'logo.png'}/>
+      <Header image={true} imgSrc={'logo.png'}/>
         <section className='my-auto text-center d-flex flex-column justify-content-center align-items-center'>
           <h1 className='hero-header mb-4'>Welcome</h1>
           <p className='px-3 mb-5'>We’ve got a FREE meal voucher for you but first, let’s get to know you. </p>

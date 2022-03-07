@@ -9,6 +9,7 @@ const reducer = (state = initialState,  action) => {
     switch(action.type){
         case 'LOADING':
             return {
+                verified: state.verified,
                 token: state.token,
                 'loading': true,
                 'success': null
@@ -17,7 +18,8 @@ const reducer = (state = initialState,  action) => {
             return {
                 'loading': false,
                 'success': action.payload.success,
-                'token': action.payload.token
+                'token': action.payload.token,
+                verified: action.payload.verified
             }
 
         case 'FAIL':
@@ -25,7 +27,8 @@ const reducer = (state = initialState,  action) => {
                 'loading': false,
                 'success': false,
                 'error': action.payload.error,
-                token: action.payload.token
+                token: action.payload.token,
+                verified: state.verified
             }
         default:
             return state

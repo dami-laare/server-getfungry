@@ -89,7 +89,7 @@ export const addPin = (pin, token) => async function(dispatch){
 
         dispatch({
             type: 'SUCCESS',
-            payload: {...data, token}
+            payload: {...data, token,}
         })
 
     }catch(err){

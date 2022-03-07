@@ -9,18 +9,21 @@
   background-color: darkcyan;
 } */
 .main-body {
-  height: 42rem;
+  height: 39rem;
+  padding: 0;
 }
 
 #main-nav {
   position: absolute;
   top: 0;
-  width: 100vw;
+  width: 100%;
+  z-index: -1000;
 }
 
 .nav-custom {
   height: 200px;
   background-color: #FF611D;
+  
 }
 
 .hero {
@@ -52,9 +55,37 @@
   color: white;
 }
 
+.btn.btn-back {
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 700;
+  color: #FF611D;
+}
+.btn.btn-logout {
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FF611D;
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+}
+.btn.btn-back:hover, .btn.btn-back:active, .btn.btn-back:focus {
+  text-decoration: underline;
+  color: #FF611D;
+  background-color: transparent;
+}
+
 .btn:hover, .btn:active {
   color: white;
   background-color: #cf531d;
+}
+.btn.btn-logout:hover, .btn.btn-logout:active, .btn.btn-logout:focus {
+  text-decoration: underline;
+  color: #ffffff;
+  box-shadow: none;
+
+  background-color: transparent;
 }
 
 .btn:focus {
@@ -107,12 +138,12 @@
 }
 
 .meal-ticket {
-  height: 56px;
+  height: fit-content;
 }
 
 .meal-btn {
-  height: 56px;
-  width: 56px;
+  height: 40px;
+  width: 40px;
   /* border: 2px solid red; */
   border-radius: 50%;
   background-color: white;
@@ -128,7 +159,7 @@
 }
 
 .meal-arrow {
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 .f-600 {
@@ -136,5 +167,56 @@
 }
 
 .transactions {
-  height: 53%;
+  height: 100%;
+  margin-top: 1rem;
+}
+
+.transactions>p{
+  transform: translateY(5rem);
+  color: rgba(0, 0, 0, 0.425);
+  font-weight: 600;
+}
+
+#bottom-menu {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  box-shadow: 0 42px 29px 37px #888;
+}
+
+.bottom-icon {
+  color: #888;
+}
+
+.credit-text {
+  font-size: 12px;
+}
+
+.credit-bar {
+  height: 17px;
+  background-color: black;
+  font-size: 12px;
+}
+
+.credit-fill {
+  height: inherit;
+  background-color: white;
+  width: 75%;
+  font-size: 12px;
+
+}
+
+.profile-head {
+  color: #fff;
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.profile-main-head {
+  height: 3rem;
+}
+
+.profile-pic{
+  height: 158px;
+  width: 158px;
 }
