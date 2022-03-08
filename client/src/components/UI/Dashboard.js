@@ -7,6 +7,8 @@ import Header from './Header'
 import MealTicket from './MealTicket'
 import DModal from '../UI/DModal'
 import Transactions from './Transactions'
+import AddCard from '../userRegistration/AddCard'
+
 import PlainForm from './PlainForm'
 import './Dashboard.css'
 
@@ -27,7 +29,7 @@ const Dashboard = () => {
 
     const modalBtnClickHandler = () => {
         setShow(false)
-        setAddCard(true)
+        setAddCard(false)
     }
 
     const closeHandler = (a) => {
@@ -71,13 +73,7 @@ const Dashboard = () => {
                 onClick={modalBtnClickHandler}
                 footer={false}
             />
-            <DModal 
-                show={addCard} 
-                modalBody={<PlainForm type='text' close={closeHandler} name='bvn' placeholder='Enter your BVN' btnText={'Continue'} btnSize='5' classes={'justify-content-center'}onClick={modalBtnClickHandler}/>}
-                headerText={'Add Card'}
-                onClick={modalBtnClickHandler}
-                footer={false}
-            />
+            <AddCard addCard={addCard} onClick={modalBtnClickHandler}/>
         </div>
     </Fragment>
   )
